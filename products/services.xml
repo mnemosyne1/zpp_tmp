@@ -1,0 +1,17 @@
+<services version="1.0">
+    <container id="default" version="1.0">
+        <search />
+        <document-api />
+    </container>
+
+    <content id="items_content" version="1.0">
+		<redundancy>2</redundancy> <!-- Number of copies of data -->
+        <documents>
+            <document type="items" mode="index" />
+        </documents>
+        <nodes>
+            <node hostalias="node1" distribution-key="0"/>
+        </nodes>
+
+    </content>
+</services>

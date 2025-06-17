@@ -1,0 +1,17 @@
+# version: '3.7'
+services:
+  vespa:
+    image: vespaengine/vespa
+    container_name: vespa
+    hostname: vespa-container
+    environment:
+      - USER=vespa
+    ports:
+      - "8080:8080"
+      - "19071:19071"
+    volumes: # those can be changed to your own paths, see README.md
+      - /home/$USER/vespa_data:/opt/vespa/var/db/vespa 
+      - /home/$USER/vespa-app/schemas:/opt/vespa/conf/vespa-schemas
+      - /home/$USER/vespa-app:/opt/vespa/conf/vespa-app
+
+    restart: unless-stopped

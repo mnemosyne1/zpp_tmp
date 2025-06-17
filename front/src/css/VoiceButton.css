@@ -1,0 +1,13 @@
+.voice-button {
+    padding: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #b4a7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.voice-button.active {
+    background-color: #007bff;
+    color: white;
+}

@@ -1,0 +1,108 @@
+schema items {
+	document items {
+		field itemId type string {
+			indexing: attribute | summary
+			match: word
+			attribute: fast-search
+			rank: filter
+		}
+		
+		field title type string {
+			indexing: index | summary
+		}
+		
+		field shortDescription type string {
+			indexing: index | summary
+		}
+		
+		field categoryPath type string {
+			indexing: index | summary
+		}
+		
+		field condition type string {
+			indexing: index | summary
+		}
+		
+		field conditionDescription type string {
+			indexing: index | summary
+		}
+		
+		field locationCity type string {
+			indexing: index | summary
+		}
+		
+		field locationState type string {
+			indexing: index | summary
+		}
+		
+		field locationPostalCode type string {
+			indexing: index | summary
+		}
+		
+		field locationCountry type string {
+			indexing: index | summary
+		}
+		
+		field brand type string {
+			indexing: index | summary
+		}
+		
+		field aspects type map<string, string> {
+		    indexing: summary
+		}
+
+		field itemWebUrl type uri {
+			indexing: summary
+		}
+		
+		field description type string {
+			indexing: index | summary
+		}
+
+		field summarizedLongerDescription type string {
+		    indexing: index | summary
+		}
+		
+		field price type float {
+			indexing: attribute | summary
+			rank: filter
+		}
+
+		
+		field embedding type tensor<float>(x[384]) {
+    			indexing: attribute | index
+    			index {
+                    hnsw {
+                        max-links-per-node: 20
+                        neighbors-to-explore-at-insert: 200
+                    }
+                }
+                attribute {
+        			distance-metric: euclidean
+    			}
+		}
+	}
+	
+	rank-profile vector_rank inherits default{
+		inputs {
+			query(query_embedding) tensor<float>(x[384])
+		}
+		first-phase {
+			expression: closeness(field, embedding)
+		}
+	}
+
+	rank-profile vector_with_price {
+		inputs {
+			query(query_embedding) tensor<float>(x[384])
+		}
+		first-phase {
+			expression: closeness(field, embedding)
+		}
+
+		second-phase {
+			rerank-count: 50  # Weźmy 50 najlepszych wyników z pierwszego etapu
+			expression: closeness(field, embedding) / log(attribute(price) + 2)
+		}
+	}
+}

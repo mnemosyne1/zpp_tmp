@@ -1,0 +1,5 @@
+ebay-config.yaml
+venv/
+.idea
+*.json
+tmp*
