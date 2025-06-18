@@ -6,7 +6,7 @@ from rag_chatbot import get_response
 import prompts as prompts
 
 BATCH_SIZE = 128
-INPUT_FILE = "./json_files/data_compressed.json"
+INPUT_FILE = "./json_files/data.json"
 OUTPUT_FILE = "./embedded/data_embedded.json"
 model = get_embedding_model()
 

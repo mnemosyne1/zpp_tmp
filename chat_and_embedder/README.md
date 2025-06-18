@@ -6,7 +6,7 @@
 mkdir json_files
 ```
 
-Wrzuć do utworzonego folderu plik `data_compressed.json`.
+Wrzuć do utworzonego folderu plik `data.json`.
 Potem przekonwertuj dane dodając do nich embedding.
 Skrypt ten tworzy odpowiedni folder, jeśli jeszcze go nie ma.
 Uwaga! Program ten generuje też streszczenia opisów porduktów zawartych w bazie, co trwa bardzo długo, nawet kilka dni dla obecnej bazy danych.  
